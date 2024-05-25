@@ -1,0 +1,91 @@
+{
+  "name": "npm-run",
+  "displayName": "NPM Run",
+  "description": "Run button next to scripts inside package.json",
+  "version": "0.0.1",
+  "publisher": "nikhil-patil",
+  "license": "MIT",
+  "author": {
+      "name": "Nikhil Patil",
+      "url": "https://github.com/nik-base"
+  },
+  "repository": {
+      "url": "https://github.com/nik-base/npm-run",
+      "type": "git"
+  },
+  "homepage": "https://github.com/nik-base/npm-run#readme",
+  "bugs": {
+      "url": "https://github.com/nik-base/npm-run/issues",
+      "email": "nikhil.patil.3632@gmail.com"
+  },
+  "readmeFilename": "README.md",
+  "icon": "resources/icons/play-solid.png",
+  "galleryBanner": {
+      "color": "#000000",
+      "theme": "dark"
+  },
+  "engines": {
+    "vscode": "^1.89.x"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "npm",
+    "run",
+    "run task",
+    "npm run",
+    "pnpm run",
+    "yarn run",
+    "npm start",
+    "script",
+    "task",
+    "run script",
+    "npm-run"
+  ],
+  "activationEvents": ["onLanguage:json", "workspaceContains:package.json"],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+    ],
+    "configuration": {
+      "title": "NPM Run",
+      "properties": {
+        "npm-run.enable": {
+          "type": "boolean",
+          "description": "Enable Run script as task from package.json",
+          "default": true
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run package",
+    "compile": "npm run check-types && npm run lint && node esbuild.js",
+    "watch": "npm-run-all -p watch:*",
+    "watch:esbuild": "node esbuild.js --watch",
+    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+    "package": "npm run check-types && npm run lint && node esbuild.js --production",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "npm run compile-tests && npm run compile && npm run lint",
+    "check-types": "tsc --noEmit",
+    "lint": "eslint src --ext ts",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.89.0",
+    "@typescript-eslint/eslint-plugin": "^7.7.1",
+    "@typescript-eslint/parser": "^7.7.1",
+    "@vscode/test-cli": "^0.0.9",
+    "@vscode/test-electron": "^2.3.9",
+    "esbuild": "^0.20.2",
+    "eslint": "^8.57.0",
+    "eslint-config-prettier": "^9.0.0",
+    "npm-run-all": "^4.1.5",
+    "prettier": "^2.6.2",
+    "typescript": "^5.4.5"
+  }
+}
