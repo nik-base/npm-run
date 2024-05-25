@@ -36,4 +36,4 @@ jobs:
       - name: Compile Tests
         run: npm run compile-tests
       - name: Run Tests
-        run: npm run test
+        run: xvfb-run -a npm test
