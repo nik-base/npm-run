@@ -1,7 +1,7 @@
 {
   "name": "npm-run",
   "displayName": "NPM Run",
-  "description": "Run button next to scripts inside package.json",
+  "description": "Run package.json scripts with single click",
   "version": "0.0.1",
   "publisher": "nikhil-patil",
   "license": "MIT",

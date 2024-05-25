@@ -75,14 +75,14 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 				return;
 			}
 
+			if (!scriptStarted) {
+				return;
+			}
+
 			const ended: boolean = scriptsEndedRegex.test(trimmedLine);
 			if (ended) {
 				scriptEnded = true;
 
-				return;
-			}
-
-			if (!scriptStarted) {
 				return;
 			}
 
