@@ -41,4 +41,4 @@ jobs:
         if: failure()
         with:
           name: logs
-          path: logs
+          path: test/e2e/logs
