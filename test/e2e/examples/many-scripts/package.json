@@ -1,0 +1,11 @@
+{
+    "name": "many-scripts",
+    "version": "1.0.0",
+    "scripts": {
+        "echo_test1": "echo test1",
+        "echo_test2": "echo test2",
+        "echo_test3": "echo test3",
+        "echo_test4": "echo test4"
+    },
+    "description": "Many Scripts"
+}

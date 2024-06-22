@@ -9,7 +9,7 @@ import {
 	workspace,
 } from 'vscode';
 
-import { IScriptInfo } from './npm-run-codelens-provider';
+import { IScriptInfo } from '../provider/npm-run-codelens-provider';
 import { TaskManager } from './task-manager';
 
 export class CommandManager {

@@ -4,11 +4,11 @@ Run script from your `package.json` with single click from the `package.json` fi
 
 ## Features
 
-The `Run` button is right above the script. This extension can run scripts using `npm`.
+The `Run` button is right above the script.
 
 \!\[NPM Run Demo\]\(resources/demo/npm-run-demo.gif\)
 
-> Tip: If you have `npm` extension installed on your Visual Studio Code workspace, it will automatically detech your preferred package manager and run the script using it.
+> Contrary to the extension name, this extension can run scripts using your preferred package manager not just `npm`.
 
 ## Extension Settings
 
@@ -26,6 +26,6 @@ Calling out known issues can help limit users opening duplicate issues against y
 
 - Added Run button next to scripts in package.json
 - Scripts are run tasks in Terminal
-- If `npm` extension is installed, then extension will automatically detech package manager.
+- Run Scripts with your preferred package manager.
 
 ---

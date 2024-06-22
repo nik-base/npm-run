@@ -1,0 +1,8 @@
+{
+    "name": "one-script",
+    "version": "1.0.0",
+    "scripts": {
+        "echo_test": "echo test"
+    },
+    "description": "One Script"
+}

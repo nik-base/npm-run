@@ -10,12 +10,17 @@ import {
 import {
 	IScriptInfo,
 	NpmRunCodelensProvider,
-} from './npm-run-codelens-provider';
-import { CommandManager } from './command-manager';
+} from './provider/npm-run-codelens-provider';
+import { CommandManager } from './manager/command-manager';
+import { OutputChannel } from './util/output-channel';
+
+const outputChannel: OutputChannel = new OutputChannel();
 
 const commandManager: CommandManager = new CommandManager();
 
 export async function activate(context: ExtensionContext): Promise<void> {
+	outputChannel.log('Activated');
+
 	await registerNpmRunCodelens(context);
 
 	registerRunCommand(context);

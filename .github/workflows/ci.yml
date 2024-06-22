@@ -1,10 +1,6 @@
 name: CI
 
-on:
-  push:
-    branches:
-      - master
-  pull_request:
+on: [push, pull_request]
 
 permissions:
   actions: read
@@ -36,8 +32,13 @@ jobs:
       - name: Compile Tests
         run: npm run compile-tests
       - name: Run Tests
-        run: xvfb-run -a npm test
+        run: xvfb-run -a npm run test-e2e
         if: runner.os == 'Linux'
       - name: Run Tests
-        run: npm test
+        run: npm run test-e2e
         if: runner.os != 'Linux'
+      - uses: actions/upload-artifact@v1
+        if: failure()
+        with:
+          name: logs
+          path: logs
