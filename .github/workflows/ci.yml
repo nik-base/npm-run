@@ -31,13 +31,13 @@ jobs:
         run: npm run compile
       - name: Compile Tests
         run: npm run compile-tests
-      - name: Run Tests
+      - name: Run Tests (Linux)
         run: xvfb-run -a npm run test-e2e
         if: runner.os == 'Linux'
       - name: Run Tests
         run: npm run test-e2e
         if: runner.os != 'Linux'
-      - uses: actions/upload-artifact@v1
+      - uses: actions/upload-artifact@v4
         if: failure()
         with:
           name: logs
