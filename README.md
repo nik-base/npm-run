@@ -6,7 +6,7 @@ Run script from your `package.json` with single click from the `package.json` fi
 
 The `Run` button is right above the script.
 
-\!\[NPM Run Demo\]\(resources/demo/npm-run-demo.gif\)
+![NPM Run Demo](resources/demo/npm-run-demo.gif)
 
 > Contrary to the extension name, this extension can run scripts using your preferred package manager not just `npm`.
 
