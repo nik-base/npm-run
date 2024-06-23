@@ -75,10 +75,14 @@ export class VsCodeActions {
 		return await activeEditor.getTitle();
 	};
 
-	static #getPackageJsonEditorTab = async (): Promise<TextEditor> => {
+	static #getPackageJsonEditorTab = async (
+		delay: boolean = false
+	): Promise<TextEditor> => {
 		const editorView: EditorView = await this.#getEditorView();
 
-		await browser.pause(2000);
+		if (delay) {
+			await browser.pause(2000);
+		}
 
 		const tab: TextEditor = (await editorView.openEditor(
 			'package.json'
@@ -87,8 +91,8 @@ export class VsCodeActions {
 		return tab;
 	};
 
-	static getCodeLenses = async (): Promise<CodeLens[]> => {
-		const tab: TextEditor = await this.#getPackageJsonEditorTab();
+	static getCodeLenses = async (delay: boolean = true): Promise<CodeLens[]> => {
+		const tab: TextEditor = await this.#getPackageJsonEditorTab(delay);
 
 		const codeLenses: CodeLens[] = await tab.getCodeLenses();
 
@@ -96,9 +100,7 @@ export class VsCodeActions {
 	};
 
 	static #getCodeLens = async (index: number): Promise<CodeLens> => {
-		const tab: TextEditor = await this.#getPackageJsonEditorTab();
-
-		const codeLenses: CodeLens[] = await tab.getCodeLenses();
+		const codeLenses: CodeLens[] = await this.getCodeLenses(false);
 
 		return codeLenses[index];
 	};
