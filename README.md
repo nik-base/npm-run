@@ -16,10 +16,6 @@ This extension contributes the following settings:
 
 - `npm-run.enable`: Enable/disable this extension.
 
-## Known Issues
-
-Calling out known issues can help limit users opening duplicate issues against your extension.
-
 ## Release Notes
 
 ### 0.0.1

@@ -78,6 +78,8 @@ export class VsCodeActions {
 	static #getPackageJsonEditorTab = async (): Promise<TextEditor> => {
 		const editorView: EditorView = await this.#getEditorView();
 
+		await browser.pause(2000);
+
 		const tab: TextEditor = (await editorView.openEditor(
 			'package.json'
 		)) as TextEditor;
