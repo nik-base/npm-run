@@ -57,16 +57,6 @@ export class VsCodeActions {
 
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
-				await browser.keys('Escape');
-
-				await runButton$.waitForExist();
-
-				await runButton$.waitForStable();
-
-				await runButton$.scrollIntoView();
-
-				await runButton$.waitForClickable();
-
 				await runButton$.click();
 			})
 		);
