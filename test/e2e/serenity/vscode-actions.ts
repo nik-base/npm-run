@@ -57,6 +57,14 @@ export class VsCodeActions {
 
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
+				await browser.keys('Escape');
+
+				await runButton$.waitForExist();
+
+				await runButton$.waitForStable();
+
+				await runButton$.scrollIntoView();
+
 				await runButton$.waitForClickable();
 
 				await runButton$.click();
@@ -79,14 +87,10 @@ export class VsCodeActions {
 		return await activeEditor.getTitle();
 	};
 
-	static #getPackageJsonEditorTab = async (
-		delay: boolean = false
-	): Promise<TextEditor> => {
+	static #getPackageJsonEditorTab = async (): Promise<TextEditor> => {
 		const editorView: EditorView = await this.#getEditorView();
 
-		if (delay) {
-			await browser.pause(2000);
-		}
+		await browser.pause(2000);
 
 		const tab: TextEditor = (await editorView.openEditor(
 			'package.json'
@@ -95,8 +99,8 @@ export class VsCodeActions {
 		return tab;
 	};
 
-	static getCodeLenses = async (delay: boolean = true): Promise<CodeLens[]> => {
-		const tab: TextEditor = await this.#getPackageJsonEditorTab(delay);
+	static getCodeLenses = async (): Promise<CodeLens[]> => {
+		const tab: TextEditor = await this.#getPackageJsonEditorTab();
 
 		const codeLenses: CodeLens[] = await tab.getCodeLenses();
 
@@ -104,7 +108,7 @@ export class VsCodeActions {
 	};
 
 	static #getCodeLens = async (index: number): Promise<CodeLens> => {
-		const codeLenses: CodeLens[] = await this.getCodeLenses(false);
+		const codeLenses: CodeLens[] = await this.getCodeLenses();
 
 		return codeLenses[index];
 	};
@@ -114,7 +118,7 @@ export class VsCodeActions {
 
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
-		await browser.pause(5000);
+		await browser.pause(8000);
 
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 
