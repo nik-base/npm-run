@@ -57,6 +57,8 @@ export class VsCodeActions {
 
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
+				await runButton$.waitForClickable();
+
 				await runButton$.click();
 			})
 		);
