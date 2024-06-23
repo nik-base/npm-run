@@ -53,6 +53,8 @@ export class VsCodeActions {
 			Interaction.where('click run script button', async (): Promise<void> => {
 				const codeLens: CodeLens = await this.#getCodeLens(index);
 
+				await browser.pause(2000);
+
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
 				await runButton$.click();
