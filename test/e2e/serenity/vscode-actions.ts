@@ -80,8 +80,6 @@ export class VsCodeActions {
 	static #getPackageJsonEditorTab = async (): Promise<TextEditor> => {
 		const editorView: EditorView = await this.#getEditorView();
 
-		await browser.pause(2000);
-
 		const tab: TextEditor = (await editorView.openEditor(
 			'package.json'
 		)) as TextEditor;
@@ -108,7 +106,7 @@ export class VsCodeActions {
 
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
-		await browser.pause(8000);
+		await browser.pause(6000);
 
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 

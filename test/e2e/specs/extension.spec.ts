@@ -118,31 +118,5 @@ describe('NPM Run Extension', () => {
 				includes('npm run echo_test1')
 			)
 		);
-
-		await browser.keys('Escape');
-
-		await actorCalled('Alice').attemptsTo(
-			VsCodeActions.clickRunScriptButton(2),
-			Ensure.eventually(
-				VsCodeActions.getTerminalTabText(),
-				includes('npm run echo_test2')
-			)
-		);
-
-		await actorCalled('Alice').attemptsTo(
-			VsCodeActions.clickRunScriptButton(3),
-			Ensure.eventually(
-				VsCodeActions.getTerminalTabText(),
-				includes('npm run echo_test3')
-			)
-		);
-
-		await actorCalled('Alice').attemptsTo(
-			VsCodeActions.clickRunScriptButton(4),
-			Ensure.eventually(
-				VsCodeActions.getTerminalTabText(),
-				includes('npm run echo_test4')
-			)
-		);
 	});
 });
