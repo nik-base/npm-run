@@ -119,6 +119,8 @@ describe('NPM Run Extension', () => {
 			)
 		);
 
+		await browser.keys('Escape');
+
 		await actorCalled('Alice').attemptsTo(
 			VsCodeActions.clickRunScriptButton(2),
 			Ensure.eventually(
