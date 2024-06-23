@@ -110,7 +110,7 @@ export class VsCodeActions {
 
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
-		await browser.pause(2000);
+		await browser.pause(5000);
 
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 

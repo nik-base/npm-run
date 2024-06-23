@@ -21,6 +21,8 @@ describe('NPM Run Extension', () => {
 
 	beforeEach(async function () {
 		await closeAllOpenEditorTabs();
+
+		await dismissAllNotifications();
 	});
 
 	it('when package.json is empty', async function () {
