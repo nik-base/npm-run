@@ -76,6 +76,8 @@
     "test-e2e": "wdio run ./test/e2e/wdio.conf.ts"
   },
   "devDependencies": {
+    "@eslint/eslintrc": "^3.3.0",
+    "@eslint/js": "^9.21.0",
     "@serenity-js/assertions": "^3.23.2",
     "@serenity-js/console-reporter": "^3.23.2",
     "@serenity-js/core": "^3.23.2",
