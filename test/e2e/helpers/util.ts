@@ -34,6 +34,8 @@ export const waitForNpmRunToActivate = async (): Promise<void> => {
 		outputView.locatorMap.BottomBarViews.outputChannels =
 			'ul[aria-label="Output actions"] select';
 
+		await browser.pause(500);
+
 		const channelNames: string[] = await outputView.getChannelNames();
 
 		if (!channelNames.includes('NPM Run')) {
