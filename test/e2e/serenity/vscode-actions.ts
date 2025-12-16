@@ -53,15 +53,9 @@ export class VsCodeActions {
 
 				await browser.pause(2000);
 
-				console.log('Waiting for codelens run button...');
-
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
-				console.log('Starting click...');
-
 				await runButton$.click();
-
-				console.log('Clicked');
 			})
 		);
 
@@ -108,25 +102,17 @@ export class VsCodeActions {
 	};
 
 	static getTerminalTabText = async (): Promise<string> => {
-		console.log('Getting terminal tab text...');
 		const workbench: Workbench = await browser.getWorkbench();
 
-		console.log('Getting bottom bar...');
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
 		await browser.pause(6000);
 
-		console.log('Opening terminal view...');
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 
-		console.log('Getting terminal text...');
 		const terminalText: string = await terminalView.getText();
 
-		console.log('Terminal text:', terminalText);
-
 		await terminalView.killTerminal();
-
-		console.log('Killed terminal');
 
 		return terminalText;
 	};
