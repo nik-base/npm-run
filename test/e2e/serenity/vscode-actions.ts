@@ -124,6 +124,10 @@ export class VsCodeActions {
 
 		console.log('Terminal text:', terminalText);
 
+		await terminalView.killTerminal();
+
+		console.log('Killed terminal');
+
 		return terminalText;
 	};
 
