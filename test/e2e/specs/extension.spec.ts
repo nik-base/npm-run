@@ -136,6 +136,8 @@ describe('NPM Run Extension', () => {
 			)
 		);
 
+		console.log('starting click');
+
 		await actorCalled('Alice').attemptsTo(
 			VsCodeActions.clickRunScriptButton(1),
 			Ensure.eventually(
