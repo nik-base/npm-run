@@ -56,7 +56,7 @@ export const config: WebdriverIOConfig = {
 	capabilities: [
 		{
 			browserName: 'vscode',
-			browserVersion: '1.104.2', // also possible: "insiders" or a specific version e.g. "1.80.0"
+			browserVersion: 'stable', // also possible: "insiders" or a specific version e.g. "1.80.0"
 			'wdio:vscodeOptions': {
 				// points to directory where extension package.json is located
 				extensionPath: join(__dirname, '../../'),

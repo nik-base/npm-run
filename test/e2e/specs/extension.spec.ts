@@ -17,7 +17,7 @@ describe('NPM Run Extension', () => {
 			await global.browser.pause(5000);
 
 			console.log('⏳ Dismissing notifications...');
-			// await dismissAllNotifications();
+			await dismissAllNotifications();
 
 			console.log('⏳ Waiting for NPM Run extension to activate...');
 			await waitForNpmRunToActivate();
