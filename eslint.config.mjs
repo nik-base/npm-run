@@ -141,7 +141,7 @@ export default [
 			'no-fallthrough': 'error',
 			'no-new-wrappers': 'error',
 			'no-redeclare': 'error',
-			'no-throw-literal': 'off',
+			'no-throw-literal': 'error',
 			'no-underscore-dangle': 'off',
 			'no-unused-labels': 'error',
 			'no-var': 'error',

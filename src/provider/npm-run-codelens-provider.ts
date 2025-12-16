@@ -110,7 +110,9 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 
 			console.error(`${message}:`, error);
 
-			this.outputChannel.log(`${message}: ${String(error)}`);
+			this.outputChannel.log(
+				`${message} at path ${document.uri.fsPath}: ${String(error)}`
+			);
 
 			window.showErrorMessage(`NPM Run: ${message}`);
 
