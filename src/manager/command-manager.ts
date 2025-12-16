@@ -48,7 +48,7 @@ export class CommandManager {
 			return;
 		}
 
-		const task: Task = await this.taskManager.createTask(
+		const task: Task = this.taskManager.createTask(
 			packageManager,
 			script,
 			['run', script],
@@ -60,13 +60,13 @@ export class CommandManager {
 	}
 
 	public async activateNpm(): Promise<void> {
-		return extensions.getExtension('vscode.npm')?.activate();
+		await extensions.getExtension('vscode.npm')?.activate();
 	}
 
 	public async getPackageManager(uri: Uri | undefined): Promise<string> {
 		const packageManager: string | null | undefined =
 			await commands.executeCommand('npm.packageManager', uri);
 
-		return packageManager || 'npm';
+		return packageManager ?? 'npm';
 	}
 }

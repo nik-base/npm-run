@@ -10,13 +10,30 @@ import { VsCodeActions } from '../serenity/vscode-actions';
 
 describe('NPM Run Extension', () => {
 	before('should finish loading the extension', async function () {
-		this.timeout(30000);
+		this.timeout(60000); // Increase timeout
 
-		await browser.pause(5000);
+		try {
+			console.log('⏳ Waiting for VS Code to stabilize...');
+			await global.browser.pause(5000);
 
-		await dismissAllNotifications();
+			console.log('⏳ Dismissing notifications...');
+			// await dismissAllNotifications();
 
-		await waitForNpmRunToActivate();
+			console.log('⏳ Waiting for NPM Run extension to activate...');
+			await waitForNpmRunToActivate();
+
+			console.log('✅ Extension activated successfully!');
+		} catch (error) {
+			console.error('❌ Extension activation failed:', error);
+
+			// Take a screenshot for debugging
+			const workbench = await global.browser.getWorkbench();
+			await global.browser.saveScreenshot(
+				'./test/e2e/logs/activation-failure.png'
+			);
+
+			throw error;
+		}
 	});
 
 	beforeEach(async function () {

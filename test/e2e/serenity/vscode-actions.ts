@@ -28,7 +28,7 @@ export class VsCodeActions {
 					`../examples/${example}/package.json`
 				);
 
-				await browser.executeWorkbench(
+				await global.browser.executeWorkbench(
 					async (vscode, packageJsonFilePath: string) => {
 						// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 						const doc = await vscode.workspace.openTextDocument(
@@ -53,7 +53,7 @@ export class VsCodeActions {
 			Interaction.where('click run script button', async (): Promise<void> => {
 				const codeLens: CodeLens = await this.#getCodeLens(index);
 
-				await browser.pause(2000);
+				await global.browser.pause(2000);
 
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
@@ -62,7 +62,7 @@ export class VsCodeActions {
 		);
 
 	static #getEditorView = async (): Promise<EditorView> => {
-		const workbench: Workbench = await browser.getWorkbench();
+		const workbench: Workbench = await global.browser.getWorkbench();
 
 		const editorView: EditorView = workbench.getEditorView();
 
@@ -80,7 +80,7 @@ export class VsCodeActions {
 	static #getPackageJsonEditorTab = async (): Promise<TextEditor> => {
 		const editorView: EditorView = await this.#getEditorView();
 
-		await browser.pause(2000);
+		await global.browser.pause(2000);
 
 		const tab: TextEditor = (await editorView.openEditor(
 			'package.json'
@@ -104,11 +104,11 @@ export class VsCodeActions {
 	};
 
 	static getTerminalTabText = async (): Promise<string> => {
-		const workbench: Workbench = await browser.getWorkbench();
+		const workbench: Workbench = await global.browser.getWorkbench();
 
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
-		await browser.pause(6000);
+		await global.browser.pause(6000);
 
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 

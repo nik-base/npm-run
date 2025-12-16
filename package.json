@@ -1,107 +1,109 @@
 {
-  "name": "npm-run",
-  "displayName": "NPM Run",
-  "description": "Run package.json scripts with single click",
-  "version": "0.0.1",
-  "publisher": "nikhil-patil",
-  "license": "MIT",
-  "author": {
-    "name": "Nikhil Patil",
-    "url": "https://github.com/nik-base"
-  },
-  "repository": {
-    "url": "https://github.com/nik-base/npm-run",
-    "type": "git"
-  },
-  "homepage": "https://github.com/nik-base/npm-run#readme",
-  "bugs": {
-    "url": "https://github.com/nik-base/npm-run/issues",
-    "email": "nikhil.patil.3632@gmail.com"
-  },
-  "readmeFilename": "README.md",
-  "pricing": "Free",
-  "icon": "resources/icons/play-solid.png",
-  "galleryBanner": {
-    "color": "#000000",
-    "theme": "dark"
-  },
-  "engines": {
-    "vscode": "^1.89.1"
-  },
-  "categories": [
-    "Other"
-  ],
-  "keywords": [
-    "npm",
-    "run",
-    "run task",
-    "npm run",
-    "pnpm run",
-    "yarn run",
-    "npm start",
-    "script",
-    "task",
-    "run script",
-    "npm-run"
-  ],
-  "activationEvents": [
-    "onLanguage:json",
-    "workspaceContains:package.json"
-  ],
-  "main": "./dist/extension.js",
-  "contributes": {
-    "configuration": {
-      "title": "NPM Run",
-      "properties": {
-        "npm-run.enable": {
-          "type": "boolean",
-          "description": "Enable Run script as task from package.json",
-          "default": true
-        }
-      }
-    }
-  },
-  "scripts": {
-    "preinstall": "npx only-allow pnpm",
-    "vscode:prepublish": "pnpm run package",
-    "compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
-    "watch": "pnpm-run-all -p watch:*",
-    "watch:esbuild": "node esbuild.js --watch",
-    "watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
-    "package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
-    "compile-tests": "tsc -p . --outDir out",
-    "watch-tests": "tsc -p . -w --outDir out",
-    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
-    "check-types": "tsc --noEmit",
-    "lint": "eslint src --ext ts",
-    "test-e2e": "wdio run ./test/e2e/wdio.conf.ts"
-  },
-  "devDependencies": {
-    "@eslint/eslintrc": "3.3.3",
-    "@eslint/js": "9.39.2",
-    "@serenity-js/assertions": "3.37.0",
-    "@serenity-js/console-reporter": "3.37.0",
-    "@serenity-js/core": "3.37.0",
-    "@serenity-js/mocha": "3.37.0",
-    "@serenity-js/serenity-bdd": "3.37.0",
-    "@serenity-js/web": "3.37.0",
-    "@serenity-js/webdriverio": "3.37.0",
-    "@types/mocha": "10.0.10",
-    "@types/node": "25.0.2",
-    "@types/vscode": "1.107.0",
-    "@typescript-eslint/eslint-plugin": "8.49.0",
-    "@typescript-eslint/parser": "8.49.0",
-    "@wdio/cli": "9.21.1",
-    "@wdio/dot-reporter": "9.20.0",
-    "@wdio/local-runner": "9.21.0",
-    "@wdio/spec-reporter": "9.20.0",
-    "esbuild": "0.27.1",
-    "eslint": "9.39.2",
-    "eslint-config-prettier": "10.1.8",
-    "prettier": "3.7.4",
-    "ts-node": "10.9.2",
-    "typescript": "5.9.3",
-    "wdio-vscode-service": "6.1.4",
-    "wdio-wait-for": "3.1.0"
-  }
+	"name": "npm-run",
+	"displayName": "NPM Run",
+	"description": "Run package.json scripts with single click",
+	"version": "0.0.1",
+	"publisher": "nikhil-patil",
+	"license": "MIT",
+	"author": {
+		"name": "Nikhil Patil",
+		"url": "https://github.com/nik-base"
+	},
+	"repository": {
+		"url": "https://github.com/nik-base/npm-run",
+		"type": "git"
+	},
+	"homepage": "https://github.com/nik-base/npm-run#readme",
+	"bugs": {
+		"url": "https://github.com/nik-base/npm-run/issues",
+		"email": "nikhil.patil.3632@gmail.com"
+	},
+	"readmeFilename": "README.md",
+	"pricing": "Free",
+	"icon": "resources/icons/play-solid.png",
+	"galleryBanner": {
+		"color": "#000000",
+		"theme": "dark"
+	},
+	"engines": {
+		"vscode": "^1.89.1"
+	},
+	"categories": [
+		"Other"
+	],
+	"keywords": [
+		"npm",
+		"run",
+		"run task",
+		"npm run",
+		"pnpm run",
+		"yarn run",
+		"npm start",
+		"script",
+		"task",
+		"run script",
+		"npm-run"
+	],
+	"activationEvents": [
+		"onLanguage:json",
+		"workspaceContains:package.json"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"configuration": {
+			"title": "NPM Run",
+			"properties": {
+				"npm-run.enable": {
+					"type": "boolean",
+					"description": "Enable Run script as task from package.json",
+					"default": true
+				}
+			}
+		}
+	},
+	"scripts": {
+		"preinstall": "npx only-allow pnpm",
+		"vscode:prepublish": "pnpm run package",
+		"compile": "pnpm run check-types && pnpm run lint && node esbuild.js",
+		"watch": "pnpm-run-all -p watch:*",
+		"watch:esbuild": "node esbuild.js --watch",
+		"watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
+		"package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
+		"compile-tests": "tsc -p . --outDir out",
+		"watch-tests": "tsc -p . -w --outDir out",
+		"pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+		"check-types": "tsc --noEmit",
+		"lint": "eslint src --ext ts",
+		"lint:fix": "eslint src --ext ts --fix",
+		"test-e2e": "wdio run ./test/e2e/wdio.conf.ts"
+	},
+	"devDependencies": {
+		"@eslint/eslintrc": "3.3.3",
+		"@eslint/js": "9.39.2",
+		"@serenity-js/assertions": "3.37.0",
+		"@serenity-js/console-reporter": "3.37.0",
+		"@serenity-js/core": "3.37.0",
+		"@serenity-js/mocha": "3.37.0",
+		"@serenity-js/serenity-bdd": "3.37.0",
+		"@serenity-js/web": "3.37.0",
+		"@serenity-js/webdriverio": "3.37.0",
+		"@types/mocha": "10.0.10",
+		"@types/node": "25.0.2",
+		"@types/vscode": "1.107.0",
+		"@typescript-eslint/eslint-plugin": "8.49.0",
+		"@typescript-eslint/parser": "8.49.0",
+		"@wdio/cli": "9.21.1",
+		"@wdio/dot-reporter": "9.20.0",
+		"@wdio/local-runner": "9.21.0",
+		"@wdio/spec-reporter": "9.20.0",
+		"esbuild": "0.27.1",
+		"eslint": "9.39.2",
+		"eslint-config-prettier": "10.1.8",
+		"prettier": "3.7.4",
+		"ts-node": "10.9.2",
+		"typescript": "5.9.3",
+		"typescript-eslint": "^8.48.1",
+		"wdio-vscode-service": "6.1.4",
+		"wdio-wait-for": "3.1.0"
+	}
 }

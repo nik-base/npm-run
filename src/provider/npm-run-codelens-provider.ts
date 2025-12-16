@@ -6,10 +6,11 @@ import {
 	Event,
 	workspace,
 	Command,
-	TextLine,
 	Disposable,
 	l10n,
+	window,
 } from 'vscode';
+import { OutputChannel } from '../util/output-channel';
 
 export interface IScriptInfo {
 	readonly name: string;
@@ -17,14 +18,16 @@ export interface IScriptInfo {
 }
 
 export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
-	private _onDidChangeCodeLenses: EventEmitter<void> = new EventEmitter<void>();
+	private readonly _onDidChangeCodeLenses: EventEmitter<void> =
+		new EventEmitter<void>();
 
-	private disposables: Disposable[] = [];
-
+	// eslint-disable-next-line @typescript-eslint/member-ordering
 	public readonly onDidChangeCodeLenses: Event<void> =
 		this._onDidChangeCodeLenses.event;
 
-	constructor() {
+	private readonly disposables: Disposable[] = [];
+
+	constructor(private readonly outputChannel: OutputChannel) {
 		const changeConfig: Disposable = workspace.onDidChangeConfiguration(
 			(): void => {
 				this._onDidChangeCodeLenses.fire();
@@ -34,100 +37,90 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 		this.disposables.push(changeConfig);
 	}
 
-	public async provideCodeLenses(document: TextDocument): Promise<CodeLens[]> {
+	public provideCodeLenses(document: TextDocument): CodeLens[] {
 		if (!this.isNpmRunEnabled()) {
 			return [];
 		}
 
-		const lines: string[] = document.getText().split('\n');
+		try {
+			const packageJson: Record<string, unknown> | undefined = JSON.parse(
+				document.getText()
+			) as Record<string, unknown> | undefined;
 
-		const scriptsStartedRegex: RegExp = new RegExp(
-			'^\\s*"scripts"\\s*:\\s*{\\s*$'
-		);
+			const scripts: Record<string, unknown> | undefined = packageJson?.[
+				'scripts'
+			] as Record<string, unknown> | undefined;
 
-		const scriptsEndedRegex: RegExp = new RegExp('^\\s*}\\s*,\\s*$');
-
-		const scriptCommandRegex: RegExp = new RegExp(
-			'^\\s*"(.+)"\\s*:\\s*"(.+)"\\s*,?$'
-		);
-
-		let scriptStarted: boolean = false;
-
-		let scriptEnded: boolean = false;
-
-		const codeLenses: CodeLens[] = [];
-
-		let lineNumber: number = 0;
-
-		lines.forEach((line: string) => {
-			lineNumber++;
-
-			if (scriptEnded) {
-				return;
+			if (!scripts || typeof scripts !== 'object') {
+				return [];
 			}
 
-			const trimmedLine: string = line.trim();
+			const codeLenses: CodeLens[] = [];
 
-			const started: boolean = scriptsStartedRegex.test(trimmedLine);
-			if (started) {
-				scriptStarted = true;
+			// Find the scripts object position in the document
+			const text = document.getText();
+			const scriptsMatch = text.match(/"scripts"\s*:\s*{/);
 
-				return;
+			if (scriptsMatch?.index === undefined) {
+				return [];
 			}
 
-			if (!scriptStarted) {
-				return;
-			}
+			// Calculate line offset for scripts section
+			const beforeScripts = text.substring(0, scriptsMatch.index);
+			const startLine = beforeScripts.split('\n').length - 1;
 
-			const ended: boolean = scriptsEndedRegex.test(trimmedLine);
-			if (ended) {
-				scriptEnded = true;
+			Object.entries(scripts).forEach(([name, value], index) => {
+				if (typeof value !== 'string') {
+					return;
+				}
 
-				return;
-			}
+				const lineNumber = startLine + index + 1;
+				// Add bounds checking
+				if (lineNumber >= document.lineCount) {
+					return;
+				}
 
-			const matches: RegExpExecArray | null =
-				scriptCommandRegex.exec(trimmedLine);
+				const textLine = document.lineAt(lineNumber);
+				// Verify this line actually contains the script
+				if (!textLine.text.includes(name)) {
+					return;
+				}
 
-			if (!matches?.length || matches?.length < 3) {
-				return;
-			}
+				const scriptInfo: IScriptInfo = { name, value };
+				const command: Command = {
+					title: '$(run) ' + l10n.t('Run2'),
+					tooltip: `Run script '${name}: ${value}'`,
+					command: 'npm-run.run',
+					arguments: [document, scriptInfo],
+				};
 
-			const scriptName: string = matches[1];
+				codeLenses.push(new CodeLens(textLine.range, command));
+			});
 
-			const scriptValue: string = matches[2];
+			return codeLenses;
+		} catch (error: unknown) {
+			// Log error but don't break the extension
+			const message = 'Failed to parse package.json';
 
-			const scriptInfo: IScriptInfo = {
-				name: scriptName,
-				value: scriptValue,
-			};
+			console.error(`${message}:`, error);
 
-			const title: string = '$(run) ' + l10n.t('Run');
+			this.outputChannel.log(`${message}: ${String(error)}`);
 
-			const command: Command = {
-				title,
-				tooltip: `Run script '${scriptInfo.name}: ${scriptInfo.value}'`,
-				command: 'npm-run.run',
-				arguments: [document, scriptInfo],
-			};
+			window.showErrorMessage(`NPM Run: ${message}`);
 
-			const textLine: TextLine = document.lineAt(lineNumber - 1);
+			return [];
+		}
+	}
 
-			const codeLens: CodeLens = new CodeLens(textLine.range, command);
+	public dispose(): void {
+		this._onDidChangeCodeLenses.dispose();
 
-			codeLenses.push(codeLens);
+		this.disposables.forEach((disposable: Disposable): void => {
+			disposable.dispose();
 		});
-
-		return codeLenses;
 	}
 
 	private isNpmRunEnabled(): boolean {
 		return workspace.getConfiguration('npm-run').get('enable', true);
-	}
-
-	public dispose(): void {
-		this.disposables?.forEach((disposable: Disposable): void =>
-			disposable?.dispose()
-		);
 	}
 }

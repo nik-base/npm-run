@@ -23,16 +23,15 @@ const buildNames: string[] = ['build', 'compile', 'watch'];
 const testNames: string[] = ['test'];
 
 export class TaskManager {
-	public async createTask(
+	public createTask(
 		packageManager: string,
 		script: INpmTaskDefinition | string,
 		cmd: string[],
 		folder: WorkspaceFolder,
 		packageJsonUri: Uri,
 		scriptValue?: string,
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		matcher?: any
-	): Promise<Task> {
+		matcher?: string | string[]
+	): Task {
 		let kind: INpmTaskDefinition;
 
 		if (typeof script === 'string') {
@@ -41,19 +40,21 @@ export class TaskManager {
 			kind = script;
 		}
 
-		function getCommandLine(cmd: string[]): (string | ShellQuotedString)[] {
-			const result: (string | ShellQuotedString)[] = new Array(cmd.length);
+		function getCommandLine(
+			command: string[]
+		): Array<string | ShellQuotedString> {
+			const result = new Array<string | ShellQuotedString>(command.length);
 
-			for (let i = 0; i < cmd.length; i++) {
-				if (/\s/.test(cmd[i])) {
+			for (let i = 0; i < command.length; i++) {
+				if (/\s/.test(command[i])) {
 					result[i] = {
-						value: cmd[i],
-						quoting: cmd[i].includes('--')
+						value: command[i],
+						quoting: command[i].includes('--')
 							? ShellQuoting.Weak
 							: ShellQuoting.Strong,
 					};
 				} else {
-					result[i] = cmd[i];
+					result[i] = command[i];
 				}
 			}
 
@@ -66,12 +67,12 @@ export class TaskManager {
 			return result;
 		}
 
-		function getRelativePath(packageJsonUri: Uri): string {
+		function getRelativePath(packageJsonFile: Uri): string {
 			const rootUri: Uri = folder.uri;
 
-			const absolutePath: string = packageJsonUri.path.substring(
+			const absolutePath: string = packageJsonFile.path.substring(
 				0,
-				packageJsonUri.path.length - 'package.json'.length
+				packageJsonFile.path.length - 'package.json'.length
 			);
 
 			return absolutePath.substring(rootUri.path.length + 1);
@@ -138,7 +139,7 @@ export class TaskManager {
 	}
 
 	private isPrePostScript(name: string): boolean {
-		const prePostScripts: Set<string> = new Set([
+		const prePostScripts = new Set<string>([
 			'preuninstall',
 			'postuninstall',
 			'prepack',
@@ -186,7 +187,7 @@ export class TaskManager {
 		script: string,
 		relativePath: string | undefined
 	): string {
-		if (relativePath && relativePath.length) {
+		if (relativePath?.length) {
 			return `${script} - ${relativePath.substring(
 				0,
 				relativePath.length - 1

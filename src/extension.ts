@@ -18,10 +18,10 @@ const outputChannel: OutputChannel = new OutputChannel();
 
 const commandManager: CommandManager = new CommandManager();
 
-export async function activate(context: ExtensionContext): Promise<void> {
+export function activate(context: ExtensionContext): void {
 	outputChannel.log('Activated');
 
-	await registerNpmRunCodelens(context);
+	registerNpmRunCodelens(context);
 
 	registerRunCommand(context);
 }
@@ -35,7 +35,7 @@ function registerNpmRunCodelens(context: ExtensionContext): void {
 	const codeLensProviderDisposable: Disposable =
 		languages.registerCodeLensProvider(
 			documentSelector,
-			new NpmRunCodelensProvider()
+			new NpmRunCodelensProvider(outputChannel)
 		);
 
 	context.subscriptions.push(codeLensProviderDisposable);
@@ -52,8 +52,4 @@ function registerRunCommand(context: ExtensionContext): void {
 	context.subscriptions.push(run);
 }
 
-export function deactivate(context: ExtensionContext) {
-	context.subscriptions?.forEach((disposable: Disposable): void =>
-		disposable?.dispose()
-	);
-}
+export function deactivate() {}
