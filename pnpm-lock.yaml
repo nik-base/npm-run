@@ -34,7 +34,7 @@ importers:
         version: 3.37.0
       '@serenity-js/webdriverio':
         specifier: 3.37.0
-        version: 3.37.0(@serenity-js/mocha@3.37.0(mocha@11.7.5))(@wdio/cli@9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0)))(webdriverio@9.21.0)
+        version: 3.37.0(@serenity-js/mocha@3.37.0(mocha@11.7.5))(@wdio/cli@9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0))(webdriverio@9.21.0)
       '@types/mocha':
         specifier: 10.0.10
         version: 10.0.10
@@ -52,10 +52,13 @@ importers:
         version: 8.49.0(eslint@9.39.2)(typescript@5.9.3)
       '@wdio/cli':
         specifier: 9.21.1
-        version: 9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))
+        version: 9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0)
       '@wdio/dot-reporter':
         specifier: 9.20.0
         version: 9.20.0
+      '@wdio/globals':
+        specifier: ^9.17.0
+        version: 9.17.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)
       '@wdio/local-runner':
         specifier: 9.21.0
         version: 9.21.0(@wdio/globals@9.17.0)(webdriverio@9.21.0)
@@ -3509,12 +3512,12 @@ snapshots:
       '@serenity-js/core': 3.37.0
       tiny-types: 1.24.3
 
-  '@serenity-js/webdriverio@3.37.0(@serenity-js/mocha@3.37.0(mocha@11.7.5))(@wdio/cli@9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0)))(webdriverio@9.21.0)':
+  '@serenity-js/webdriverio@3.37.0(@serenity-js/mocha@3.37.0(mocha@11.7.5))(@wdio/cli@9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0))(webdriverio@9.21.0)':
     dependencies:
       '@serenity-js/core': 3.37.0
       '@serenity-js/rest': 3.37.0
       '@serenity-js/web': 3.37.0
-      '@wdio/cli': 9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))
+      '@wdio/cli': 9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0)
       '@wdio/reporter': 9.20.0
       deepmerge: 4.3.1
       tiny-types: 1.24.3
@@ -3727,11 +3730,11 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  '@wdio/cli@9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))':
+  '@wdio/cli@9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0)':
     dependencies:
       '@vitest/snapshot': 2.1.9
       '@wdio/config': 9.21.0
-      '@wdio/globals': 9.17.0(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))(webdriverio@9.21.0)
+      '@wdio/globals': 9.17.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)
       '@wdio/logger': 9.18.0
       '@wdio/protocols': 9.16.2
       '@wdio/types': 9.20.0
@@ -3780,7 +3783,7 @@ snapshots:
       '@wdio/types': 9.20.0
       chalk: 5.6.2
 
-  '@wdio/globals@9.17.0(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))(webdriverio@9.21.0)':
+  '@wdio/globals@9.17.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)':
     dependencies:
       expect-webdriverio: 5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0)
       webdriverio: 9.21.0
@@ -3790,7 +3793,7 @@ snapshots:
       '@types/node': 20.19.27
       '@wdio/logger': 9.18.0
       '@wdio/repl': 9.16.2
-      '@wdio/runner': 9.21.0(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))(webdriverio@9.21.0)
+      '@wdio/runner': 9.21.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)
       '@wdio/types': 9.20.0
       '@wdio/xvfb': 9.20.0
       exit-hook: 4.0.0
@@ -3836,12 +3839,12 @@ snapshots:
       diff: 8.0.2
       object-inspect: 1.13.4
 
-  '@wdio/runner@9.21.0(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))(webdriverio@9.21.0)':
+  '@wdio/runner@9.21.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)':
     dependencies:
       '@types/node': 20.19.27
       '@wdio/config': 9.21.0
       '@wdio/dot-reporter': 9.20.0
-      '@wdio/globals': 9.17.0(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))(webdriverio@9.21.0)
+      '@wdio/globals': 9.17.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)
       '@wdio/logger': 9.18.0
       '@wdio/types': 9.20.0
       '@wdio/utils': 9.21.0
@@ -4631,7 +4634,7 @@ snapshots:
   expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0):
     dependencies:
       '@vitest/snapshot': 4.0.15
-      '@wdio/globals': 9.17.0(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))(webdriverio@9.21.0)
+      '@wdio/globals': 9.17.0(expect-webdriverio@5.5.0)(webdriverio@9.21.0)
       '@wdio/logger': 9.18.0
       deep-eql: 5.0.2
       expect: 30.2.0

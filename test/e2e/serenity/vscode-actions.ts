@@ -1,4 +1,5 @@
 import { Ensure, equals } from '@serenity-js/assertions';
+import { browser } from '@wdio/globals';
 import {
 	d,
 	Task,
@@ -28,15 +29,12 @@ export class VsCodeActions {
 					`../examples/${example}/package.json`
 				);
 
-				await global.browser.executeWorkbench(
+				await browser.executeWorkbench(
 					async (vscode, packageJsonFilePath: string) => {
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 						const doc = await vscode.workspace.openTextDocument(
-							// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 							vscode.Uri.file(packageJsonFilePath)
 						);
 
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 						return vscode.window.showTextDocument(doc, {
 							viewColumn: vscode.ViewColumn.Active,
 						});
@@ -53,7 +51,7 @@ export class VsCodeActions {
 			Interaction.where('click run script button', async (): Promise<void> => {
 				const codeLens: CodeLens = await this.#getCodeLens(index);
 
-				await global.browser.pause(2000);
+				await browser.pause(2000);
 
 				const runButton$: WebdriverIO.Element = await codeLens.elem;
 
@@ -62,7 +60,7 @@ export class VsCodeActions {
 		);
 
 	static #getEditorView = async (): Promise<EditorView> => {
-		const workbench: Workbench = await global.browser.getWorkbench();
+		const workbench: Workbench = await browser.getWorkbench();
 
 		const editorView: EditorView = workbench.getEditorView();
 
@@ -80,7 +78,7 @@ export class VsCodeActions {
 	static #getPackageJsonEditorTab = async (): Promise<TextEditor> => {
 		const editorView: EditorView = await this.#getEditorView();
 
-		await global.browser.pause(2000);
+		await browser.pause(2000);
 
 		const tab: TextEditor = (await editorView.openEditor(
 			'package.json'
@@ -90,10 +88,13 @@ export class VsCodeActions {
 	};
 
 	static getCodeLenses = async (): Promise<CodeLens[]> => {
+		console.log('Opening editor tab');
 		const tab: TextEditor = await this.#getPackageJsonEditorTab();
 
+		console.log('getting code lenses');
 		const codeLenses: CodeLens[] = await tab.getCodeLenses();
 
+		console.log('getting code lenses_-DONE');
 		return codeLenses;
 	};
 
@@ -104,11 +105,11 @@ export class VsCodeActions {
 	};
 
 	static getTerminalTabText = async (): Promise<string> => {
-		const workbench: Workbench = await global.browser.getWorkbench();
+		const workbench: Workbench = await browser.getWorkbench();
 
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
-		await global.browser.pause(6000);
+		await browser.pause(6000);
 
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 

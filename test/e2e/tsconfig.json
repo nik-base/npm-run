@@ -3,7 +3,7 @@
 		"moduleResolution": "node",
 		"module": "CommonJS",
 		"rootDir": "./",
-		"types": ["node", "mocha", "wdio-vscode-service"],
+		"types": ["node", "wdio-vscode-service", "mocha", "@wdio/globals/types"],
 		"target": "es2022",
 		"allowJs": true,
 		"esModuleInterop": true,

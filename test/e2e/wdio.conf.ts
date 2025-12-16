@@ -47,7 +47,7 @@ export const config: WebdriverIOConfig = {
 	// and 30 processes will get spawned. The property handles how many capabilities
 	// from the same test should run tests.
 	//
-	maxInstances: 1,
+	maxInstances: 10,
 	//
 	// If you have trouble getting all important capabilities together, check out the
 	// Sauce Labs platform configurator - a great tool to configure your capabilities:
@@ -57,6 +57,7 @@ export const config: WebdriverIOConfig = {
 		{
 			browserName: 'vscode',
 			browserVersion: 'stable', // also possible: "insiders" or a specific version e.g. "1.80.0"
+			'wdio:enforceWebDriverClassic': true,
 			'wdio:vscodeOptions': {
 				// points to directory where extension package.json is located
 				extensionPath: join(__dirname, '../../'),
@@ -87,7 +88,7 @@ export const config: WebdriverIOConfig = {
 	// Define all options that are relevant for the WebdriverIO instance here
 	//
 	// Level of logging verbosity: trace | debug | info | warn | error | silent
-	logLevel: 'trace',
+	logLevel: 'info',
 	outputDir: resolve(__dirname, 'logs'),
 	//
 	// Set specific log levels per logger
@@ -146,7 +147,7 @@ export const config: WebdriverIOConfig = {
 		// Configure reporting services, see:
 		//  https://serenity-js.org/handbook/reporting/
 		crew: [
-			'@serenity-js/console-reporter',
+			// '@serenity-js/console-reporter',
 			'@serenity-js/serenity-bdd',
 			[
 				'@serenity-js/core:ArtifactArchiver',
@@ -155,13 +156,13 @@ export const config: WebdriverIOConfig = {
 			[
 				'@serenity-js/web:Photographer',
 				{
-					// strategy: 'TakePhotosOfFailures'  // fast execution, screenshots only when tests fail
-					strategy: 'TakePhotosOfInteractions', // slower execution, more comprehensive reports
+					strategy: 'TakePhotosOfFailures', // fast execution, screenshots only when tests fail
+					// strategy: 'TakePhotosOfInteractions', // slower execution, more comprehensive reports
 				},
 			],
-			[
-				'@serenity-js/core:StreamReporter', // ✅ Add detailed stream reporter
-			],
+			// [
+			// 	'@serenity-js/core:StreamReporter', // ✅ Add detailed stream reporter
+			// ],
 		],
 	},
 	//

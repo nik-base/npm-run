@@ -43,8 +43,14 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 		}
 
 		try {
+			const packageJsonString: string | undefined = document.getText();
+
+			if (!packageJsonString) {
+				return [];
+			}
+
 			const packageJson: Record<string, unknown> | undefined = JSON.parse(
-				document.getText()
+				packageJsonString
 			) as Record<string, unknown> | undefined;
 
 			const scripts: Record<string, unknown> | undefined = packageJson?.[
@@ -88,7 +94,7 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 
 				const scriptInfo: IScriptInfo = { name, value };
 				const command: Command = {
-					title: '$(run) ' + l10n.t('Run2'),
+					title: '$(run) ' + l10n.t('Run'),
 					tooltip: `Run script '${name}: ${value}'`,
 					command: 'npm-run.run',
 					arguments: [document, scriptInfo],

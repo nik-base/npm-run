@@ -1,3 +1,4 @@
+import { browser } from '@wdio/globals';
 import {
 	BottomBarPanel,
 	EditorView,
@@ -7,8 +8,8 @@ import {
 } from 'wdio-vscode-service';
 
 export const dismissAllNotifications = async (): Promise<void> => {
-	await global.browser.waitUntil(async (): Promise<boolean> => {
-		const workbench: Workbench = await global.browser.getWorkbench();
+	await browser.waitUntil(async (): Promise<boolean> => {
+		const workbench: Workbench = await browser.getWorkbench();
 
 		const notifications: Notification[] = await workbench.getNotifications();
 
@@ -24,8 +25,8 @@ export const dismissAllNotifications = async (): Promise<void> => {
 };
 
 export const waitForNpmRunToActivate = async (): Promise<void> => {
-	await global.browser.waitUntil(async (): Promise<boolean> => {
-		const workbench: Workbench = await global.browser.getWorkbench();
+	await browser.waitUntil(async (): Promise<boolean> => {
+		const workbench: Workbench = await browser.getWorkbench();
 
 		const bottomBar: BottomBarPanel = workbench.getBottomBar();
 
@@ -53,7 +54,7 @@ export const waitForNpmRunToActivate = async (): Promise<void> => {
 };
 
 export const closeAllOpenEditorTabs = async (): Promise<void> => {
-	const workbench: Workbench = await global.browser.getWorkbench();
+	const workbench: Workbench = await browser.getWorkbench();
 
 	const editorView: EditorView = workbench.getEditorView();
 
