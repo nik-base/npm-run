@@ -105,7 +105,6 @@ describe('NPM Run Extension', () => {
 	});
 
 	it('when package.json has many scripts', async function () {
-		console.log('starting many scripts...');
 		await actorCalled('Alice').attemptsTo(
 			VsCodeActions.openPackageJsonFile('many-scripts'),
 			Ensure.eventually(
@@ -135,8 +134,6 @@ describe('NPM Run Extension', () => {
 				)
 			)
 		);
-
-		console.log('starting click');
 
 		await actorCalled('Alice').attemptsTo(
 			VsCodeActions.clickRunScriptButton(1),
