@@ -1,0 +1,6 @@
+sharedWorkspaceLockfile: false
+
+onlyBuiltDependencies:
+  - edgedriver
+  - esbuild
+  - geckodriver

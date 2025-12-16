@@ -1,5 +1,6 @@
 import { actorCalled } from '@serenity-js/core';
 import { Ensure, and, includes } from '@serenity-js/assertions';
+import { browser } from '@wdio/globals';
 
 import {
 	closeAllOpenEditorTabs,
@@ -10,13 +11,36 @@ import { VsCodeActions } from '../serenity/vscode-actions';
 
 describe('NPM Run Extension', () => {
 	before('should finish loading the extension', async function () {
-		this.timeout(30000);
+		this.timeout(60000); // Wait timeout
 
-		await browser.pause(5000);
+		try {
+			console.log('Switching to first window handle...');
+			await browser.waitUntil(
+				async () => (await browser.getWindowHandles()).length > 0
+			);
 
-		await dismissAllNotifications();
+			// Get all windows (VS Code might have opened a devtools window too)
+			const handles = await browser.getWindowHandles();
 
-		await waitForNpmRunToActivate();
+			// Switch to the first handle (usually the main workbench)
+			await browser.switchToWindow(handles[0]);
+
+			await browser.pause(2000);
+
+			console.log('Waiting for NPM Run extension to activate...');
+			await waitForNpmRunToActivate();
+
+			console.log('Extension activated successfully!');
+		} catch (error) {
+			console.error('Extension activation failed:', error);
+
+			// Take a screenshot for debugging
+			await browser.getWorkbench();
+
+			await browser.saveScreenshot('./test/e2e/logs/activation-failure.png');
+
+			throw error;
+		}
 	});
 
 	beforeEach(async function () {

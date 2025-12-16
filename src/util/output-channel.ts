@@ -5,7 +5,7 @@ import {
 } from 'vscode';
 
 export class OutputChannel implements Disposable {
-	private outputChannel: vscodeOutputChannel;
+	private readonly outputChannel: vscodeOutputChannel;
 
 	constructor(name = 'NPM Run') {
 		this.outputChannel = window.createOutputChannel(name);

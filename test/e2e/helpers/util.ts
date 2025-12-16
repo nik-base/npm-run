@@ -1,3 +1,4 @@
+import { browser } from '@wdio/globals';
 import {
 	BottomBarPanel,
 	EditorView,

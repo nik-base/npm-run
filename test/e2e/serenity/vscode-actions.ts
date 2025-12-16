@@ -1,4 +1,5 @@
 import { Ensure, equals } from '@serenity-js/assertions';
+import { browser } from '@wdio/globals';
 import {
 	d,
 	Task,
@@ -30,13 +31,10 @@ export class VsCodeActions {
 
 				await browser.executeWorkbench(
 					async (vscode, packageJsonFilePath: string) => {
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 						const doc = await vscode.workspace.openTextDocument(
-							// eslint-disable-next-line @typescript-eslint/no-unsafe-call
 							vscode.Uri.file(packageJsonFilePath)
 						);
 
-						// eslint-disable-next-line @typescript-eslint/no-unsafe-return
 						return vscode.window.showTextDocument(doc, {
 							viewColumn: vscode.ViewColumn.Active,
 						});
@@ -113,6 +111,8 @@ export class VsCodeActions {
 		const terminalView: TerminalView = await bottomBar.openTerminalView();
 
 		const terminalText: string = await terminalView.getText();
+
+		await terminalView.killTerminal();
 
 		return terminalText;
 	};

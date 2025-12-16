@@ -10,13 +10,6 @@ export const config: WebdriverIOConfig = {
 	// ====================
 	// WebdriverIO supports running e2e tests as well as unit and component tests.
 	runner: 'local',
-	autoCompileOpts: {
-		autoCompile: true,
-		tsNodeOpts: {
-			project: './tsconfig.json',
-			transpileOnly: true,
-		},
-	},
 	execArgv: debug ? ['--inspect'] : [],
 	//
 	// ==================
@@ -64,6 +57,7 @@ export const config: WebdriverIOConfig = {
 		{
 			browserName: 'vscode',
 			browserVersion: 'stable', // also possible: "insiders" or a specific version e.g. "1.80.0"
+			'wdio:enforceWebDriverClassic': true,
 			'wdio:vscodeOptions': {
 				// points to directory where extension package.json is located
 				extensionPath: join(__dirname, '../../'),
@@ -72,6 +66,16 @@ export const config: WebdriverIOConfig = {
 				// optional VS Code settings
 				userSettings: {
 					'editor.fontSize': 14,
+					'files.autoSave': 'off',
+					'workbench.startupEditor': 'none', // Don't show welcome
+					'window.restoreWindows': 'none',
+				},
+				vscodeArgs: {
+					'disable-workspace-trust': null, // Skip trust dialog
+					'disable-telemetry': null,
+					'skip-release-notes': null,
+					'skip-welcome': null,
+					'disable-extensions': null, // Disable other extensions
 				},
 			},
 		},
@@ -143,7 +147,7 @@ export const config: WebdriverIOConfig = {
 		// Configure reporting services, see:
 		//  https://serenity-js.org/handbook/reporting/
 		crew: [
-			'@serenity-js/console-reporter',
+			// '@serenity-js/console-reporter',
 			'@serenity-js/serenity-bdd',
 			[
 				'@serenity-js/core:ArtifactArchiver',
@@ -152,10 +156,13 @@ export const config: WebdriverIOConfig = {
 			[
 				'@serenity-js/web:Photographer',
 				{
-					// strategy: 'TakePhotosOfFailures'  // fast execution, screenshots only when tests fail
-					strategy: 'TakePhotosOfInteractions', // slower execution, more comprehensive reports
+					strategy: 'TakePhotosOfFailures', // fast execution, screenshots only when tests fail
+					// strategy: 'TakePhotosOfInteractions', // slower execution, more comprehensive reports
 				},
 			],
+			// [
+			// 	'@serenity-js/core:StreamReporter', // ✅ Add detailed stream reporter
+			// ],
 		],
 	},
 	//
