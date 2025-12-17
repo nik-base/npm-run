@@ -16,12 +16,4 @@ This extension contributes the following settings:
 
 - `npm-run.enable`: Enable/disable this extension.
 
-## Release Notes
-
-### 0.0.1
-
-- Added Run button next to scripts in package.json
-- Scripts are run tasks in Terminal
-- Run Scripts with your preferred package manager.
-
 ---
