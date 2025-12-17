@@ -2,7 +2,7 @@
 	"name": "npm-run",
 	"displayName": "NPM Run",
 	"description": "Run package.json scripts with single click",
-	"version": "0.0.1",
+	"version": "0.0.2",
 	"publisher": "nikhil-patil",
 	"license": "MIT",
 	"author": {
@@ -26,7 +26,7 @@
 		"theme": "dark"
 	},
 	"engines": {
-		"vscode": "^1.89.1"
+		"vscode": "^1.95.0"
 	},
 	"categories": [
 		"Other"
@@ -89,7 +89,7 @@
 		"@serenity-js/webdriverio": "3.37.0",
 		"@types/mocha": "10.0.10",
 		"@types/node": "25.0.2",
-		"@types/vscode": "1.107.0",
+		"@types/vscode": "1.95.0",
 		"@wdio/cli": "9.21.1",
 		"@wdio/dot-reporter": "9.20.0",
 		"@wdio/globals": "^9.17.0",

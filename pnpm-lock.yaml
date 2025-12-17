@@ -42,8 +42,8 @@ importers:
         specifier: 25.0.2
         version: 25.0.2
       '@types/vscode':
-        specifier: 1.107.0
-        version: 1.107.0
+        specifier: 1.95.0
+        version: 1.95.0
       '@wdio/cli':
         specifier: 9.21.1
         version: 9.21.1(@types/node@25.0.2)(expect-webdriverio@5.5.0(@wdio/globals@9.17.0)(@wdio/logger@9.18.0)(webdriverio@9.21.0))
@@ -677,8 +677,8 @@ packages:
   '@types/stack-utils@2.0.3':
     resolution: {integrity: sha512-9aEbYZ3TbYMznPdcdr3SmIrLXwC/AKZXQeCf9Pgao5CKb8CyHuEX5jzWPTkvregvhRJHcpRO6BFoGW9ycaOkYw==}
 
-  '@types/vscode@1.107.0':
-    resolution: {integrity: sha512-XS8YE1jlyTIowP64+HoN30OlC1H9xqSlq1eoLZUgFEC8oUTO6euYZxti1xRiLSfZocs4qytTzR6xCBYtioQTCg==}
+  '@types/vscode@1.95.0':
+    resolution: {integrity: sha512-0LBD8TEiNbet3NvWsmn59zLzOFu/txSlGxnv5yAFHCrhG9WvAnR3IvfHzMOs2aeWqgvNjq9pO99IUw8d3n+unw==}
 
   '@types/which@2.0.2':
     resolution: {integrity: sha512-113D3mDkZDjo+EeUEHCFy0qniNc1ZpecGiAU7WSo7YDoSzolZIQKpYFHrPpjkB2nuyahcKfrmLXeQlh7gqJYdw==}
@@ -3584,7 +3584,7 @@ snapshots:
 
   '@types/stack-utils@2.0.3': {}
 
-  '@types/vscode@1.107.0': {}
+  '@types/vscode@1.95.0': {}
 
   '@types/which@2.0.2': {}
 
