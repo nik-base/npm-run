@@ -9,8 +9,9 @@ import {
 	Disposable,
 	l10n,
 	window,
+	TextLine,
 } from 'vscode';
-import { OutputChannel } from '../util/output-channel';
+import { NpmRunOutputChannel } from '../util/npm-run-output-channel';
 
 export interface IScriptInfo {
 	readonly name: string;
@@ -27,7 +28,7 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 
 	private readonly disposables: Disposable[] = [];
 
-	constructor(private readonly outputChannel: OutputChannel) {
+	constructor(private readonly outputChannel: NpmRunOutputChannel) {
 		const changeConfig: Disposable = workspace.onDidChangeConfiguration(
 			(): void => {
 				this._onDidChangeCodeLenses.fire();
@@ -64,44 +65,53 @@ export class NpmRunCodelensProvider implements CodeLensProvider, Disposable {
 			const codeLenses: CodeLens[] = [];
 
 			// Find the scripts object position in the document
-			const text = document.getText();
-			const scriptsMatch = text.match(/"scripts"\s*:\s*{/);
+			const scriptsMatch: RegExpMatchArray | null =
+				packageJsonString.match(/"scripts"\s*:\s*{/);
 
 			if (scriptsMatch?.index === undefined) {
 				return [];
 			}
 
 			// Calculate line offset for scripts section
-			const beforeScripts = text.substring(0, scriptsMatch.index);
-			const startLine = beforeScripts.split('\n').length - 1;
+			const beforeScripts: string = packageJsonString.substring(
+				0,
+				scriptsMatch.index
+			);
 
-			Object.entries(scripts).forEach(([name, value], index) => {
-				if (typeof value !== 'string') {
-					return;
+			const startLine: number = beforeScripts.split('\n').length - 1;
+
+			Object.entries(scripts).forEach(
+				([name, value]: [string, unknown], index: number): void => {
+					if (typeof value !== 'string') {
+						return;
+					}
+
+					const lineNumber: number = startLine + index + 1;
+
+					// Add bounds checking
+					if (lineNumber >= document.lineCount) {
+						return;
+					}
+
+					const textLine: TextLine = document.lineAt(lineNumber);
+
+					// Verify this line actually contains the script
+					if (!textLine.text.includes(name)) {
+						return;
+					}
+
+					const scriptInfo: IScriptInfo = { name, value };
+
+					const command: Command = {
+						title: '$(run) ' + l10n.t('Run'),
+						tooltip: `Run script '${name}: ${value}'`,
+						command: 'npm-run.run',
+						arguments: [document, scriptInfo],
+					};
+
+					codeLenses.push(new CodeLens(textLine.range, command));
 				}
-
-				const lineNumber = startLine + index + 1;
-				// Add bounds checking
-				if (lineNumber >= document.lineCount) {
-					return;
-				}
-
-				const textLine = document.lineAt(lineNumber);
-				// Verify this line actually contains the script
-				if (!textLine.text.includes(name)) {
-					return;
-				}
-
-				const scriptInfo: IScriptInfo = { name, value };
-				const command: Command = {
-					title: '$(run) ' + l10n.t('Run'),
-					tooltip: `Run script '${name}: ${value}'`,
-					command: 'npm-run.run',
-					arguments: [document, scriptInfo],
-				};
-
-				codeLenses.push(new CodeLens(textLine.range, command));
-			});
+			);
 
 			return codeLenses;
 		} catch (error: unknown) {

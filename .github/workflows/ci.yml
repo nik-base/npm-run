@@ -34,12 +34,12 @@ jobs:
       - name: Compile Package
         run: pnpm run compile
       - name: Compile Tests
-        run: pnpm run compile-tests
+        run: pnpm run compile:tests
       - name: Run Tests (Linux)
-        run: xvfb-run -a pnpm run test-e2e
+        run: xvfb-run -a pnpm run test:e2e
         if: runner.os == 'Linux'
       - name: Run Tests
-        run: pnpm run test-e2e
+        run: pnpm run test:e2e
         if: runner.os != 'Linux'
       - uses: actions/upload-artifact@v4
         if: failure()

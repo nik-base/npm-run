@@ -3,7 +3,15 @@ import tseslint from 'typescript-eslint';
 
 export default [
 	{
-		ignores: ['node_modules', 'out', '.vscode-test', 'dist', 'test'],
+		ignores: [
+			'node_modules',
+			'out',
+			'.vscode-test',
+			'dist',
+			'test',
+			'src/**/*.test.ts',
+			'src/**/*.spec.ts',
+		],
 	},
 	{
 		languageOptions: {

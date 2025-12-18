@@ -1,10 +1,13 @@
 {
 	"extends": "./tsconfig.base.json",
+	"compilerOptions": {
+		"noEmit": true
+	},
 	"include": [
 		"src/**/*",
 		"__mocks__/**/*",
 		"vitest.setup.ts",
 		"test/unit-tests/**/*"
 	],
-	"exclude": ["node_modules"]
+	"exclude": ["node_modules", "src/test/e2e/**"]
 }
