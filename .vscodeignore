@@ -16,6 +16,7 @@ vsc-extension-quickstart.md
 .wdio-vscode-service/**
 target/**
 test/**
+coverage/**
 .eslintignore
 .eslintrc.json
 .prettierignore

@@ -9,6 +9,7 @@ export default [
 			'.vscode-test',
 			'dist',
 			'test',
+			'coverage',
 			'src/**/*.test.ts',
 			'src/**/*.spec.ts',
 		],

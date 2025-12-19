@@ -39,7 +39,7 @@ jobs:
         run: xvfb-run -a pnpm run test:e2e
         if: runner.os == 'Linux'
       - name: Run Tests
-        run: pnpm run test:e2e
+        run: pnpm run test:all
         if: runner.os != 'Linux'
       - uses: actions/upload-artifact@v4
         if: failure()

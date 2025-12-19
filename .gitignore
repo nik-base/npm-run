@@ -6,4 +6,5 @@ node_modules
 *.vsix
 .wdio-vscode-service
 target
+coverage
 /test/e2e/logs/

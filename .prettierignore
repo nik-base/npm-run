@@ -3,4 +3,5 @@
 /node_modules
 .vscode
 .wdio-vdcode-service
+coverage
 /test/e2e/logs/
