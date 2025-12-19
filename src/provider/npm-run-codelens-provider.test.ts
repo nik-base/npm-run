@@ -1,6 +1,6 @@
-import { describe, test, expect, beforeEach } from 'vitest';
+import { describe, test, expect, beforeEach, vi } from 'vitest';
 import { NpmRunCodelensProvider } from './npm-run-codelens-provider';
-import { CodeLens, Command, TextDocument } from 'vscode';
+import { CodeLens, Command, TextDocument, window } from 'vscode';
 import { NpmRunOutputChannel } from '../util/npm-run-output-channel';
 import { createMockTextDocument } from '../../test/unit-tests/mocks/vscode/text-document.mocks';
 import { TestCase } from '../../test/unit-tests/models';
@@ -88,6 +88,11 @@ describe('NPM Run Codelens provider ', () => {
 				expected: [],
 			},
 			{
+				description: 'is empty',
+				input: emptyTextDocument,
+				expected: [],
+			},
+			{
 				description: 'has no scripts',
 				input: noScriptTextDocument,
 				expected: [],
@@ -144,5 +149,21 @@ describe('NPM Run Codelens provider ', () => {
 				);
 			}
 		);
+
+		it('should return empty codelenses and show error message when package.json is NOT valid', () => {
+			const invalid = '{';
+
+			const textDocument: TextDocument = createMockTextDocument(invalid);
+
+			vi.spyOn(window, 'showErrorMessage');
+
+			expect(npmRunCodelensProvider.provideCodeLenses(textDocument)).toEqual(
+				[]
+			);
+
+			expect(window.showErrorMessage).toHaveBeenCalledWith(
+				'NPM Run: Failed to parse package.json'
+			);
+		});
 	});
 });
