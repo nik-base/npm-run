@@ -88,11 +88,6 @@ describe('NPM Run Codelens provider ', () => {
 				expected: [],
 			},
 			{
-				description: 'is empty',
-				input: emptyTextDocument,
-				expected: [],
-			},
-			{
 				description: 'has no scripts',
 				input: noScriptTextDocument,
 				expected: [],

@@ -1,4 +1,5 @@
 import { vi } from 'vitest';
+import { Command } from 'vscode';
 
 export class EventEmitter {
 	event = vi.fn();
@@ -12,16 +13,25 @@ export class Disposable {
 
 export class CodeLens {
 	constructor(
-		public range: unknown,
-		public command: unknown
+		public range: Range,
+		public command?: Command
 	) {}
 }
 
 export class Range {
+	readonly start: Position;
+
+	readonly end: Position;
+
 	constructor(
-		public start: unknown,
-		public end: unknown
-	) {}
+		startLine: number,
+		startCharacter: number,
+		endLine: number,
+		endCharacter: number
+	) {
+		this.start = new Position(startLine, startCharacter);
+		this.end = new Position(endLine, endCharacter);
+	}
 }
 
 export class Position {

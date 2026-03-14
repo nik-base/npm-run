@@ -13,7 +13,7 @@ import {
 
 // Code Referred from https://github.com/microsoft/vscode/blob/main/extensions/npm/src/tasks.ts
 
-interface INpmTaskDefinition extends TaskDefinition {
+export interface INpmTaskDefinition extends TaskDefinition {
 	script: string;
 	path?: string;
 }
