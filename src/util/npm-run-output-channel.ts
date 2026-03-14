@@ -1,11 +1,7 @@
-import {
-	window,
-	OutputChannel as vscodeOutputChannel,
-	Disposable,
-} from 'vscode';
+import { window, OutputChannel, Disposable } from 'vscode';
 
-export class OutputChannel implements Disposable {
-	private readonly outputChannel: vscodeOutputChannel;
+export class NpmRunOutputChannel implements Disposable {
+	private readonly outputChannel: OutputChannel;
 
 	constructor(name = 'NPM Run') {
 		this.outputChannel = window.createOutputChannel(name);
@@ -15,10 +11,11 @@ export class OutputChannel implements Disposable {
 		this.outputChannel.appendLine(`[${this.outputChannel.name}]: ${message}`);
 	}
 
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	public logObject(data: any): void {
+	public logObject(data: unknown): void {
 		if (!data) {
-			this.outputChannel.appendLine(`[${this.outputChannel.name}]: ${data}`);
+			this.outputChannel.appendLine(
+				`[${this.outputChannel.name}]: ${String(data)}`
+			);
 
 			return;
 		}

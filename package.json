@@ -69,13 +69,18 @@
 		"watch:esbuild": "node esbuild.js --watch",
 		"watch:tsc": "tsc --noEmit --watch --project tsconfig.json",
 		"package": "pnpm run check-types && pnpm run lint && node esbuild.js --production",
-		"compile-tests": "tsc -p . --outDir out",
-		"watch-tests": "tsc -p . -w --outDir out",
-		"pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
-		"check-types": "tsc --noEmit",
-		"lint": "eslint src --ext ts",
-		"lint:fix": "eslint src --ext ts --fix",
-		"test-e2e": "wdio run ./test/e2e/wdio.conf.ts"
+		"compile:tests": "tsc -p tsconfig.test.json --outDir out",
+		"watch:tests": "tsc -p tsconfig.test.json -w --outDir out",
+		"pretest": "pnpm run compile:tests && pnpm run compile",
+		"check-types": "tsc --noEmit -p tsconfig.json",
+		"lint": "eslint src",
+		"lint:fix": "eslint src --fix",
+		"test:e2e": "wdio run ./test/e2e/wdio.conf.ts",
+		"test": "vitest run",
+		"test:watch": "vitest",
+		"test:ui": "vitest --ui",
+		"test:coverage": "vitest run --coverage",
+		"test:all": "pnpm run test && pnpm run test:e2e"
 	},
 	"devDependencies": {
 		"@eslint/eslintrc": "3.3.3",
@@ -90,6 +95,8 @@
 		"@types/mocha": "10.0.10",
 		"@types/node": "25.0.2",
 		"@types/vscode": "1.95.0",
+		"@vitest/coverage-v8": "^4.0.16",
+		"@vitest/ui": "^4.0.16",
 		"@wdio/cli": "9.21.1",
 		"@wdio/dot-reporter": "9.20.0",
 		"@wdio/globals": "^9.17.0",
@@ -102,6 +109,7 @@
 		"ts-node": "10.9.2",
 		"typescript": "5.9.3",
 		"typescript-eslint": "^8.48.1",
+		"vitest": "^4.0.16",
 		"wdio-vscode-service": "6.1.4",
 		"wdio-wait-for": "3.1.0"
 	}
